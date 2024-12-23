@@ -34,6 +34,11 @@ defmodule AshPaperTrail.Resource.Changes.CreateNewVersion do
   end
 
   @impl true
+  def after_batch([], _opts, _context) do
+    []
+  end
+
+  @impl true
   def after_batch([{changeset, _} | _] = changesets_and_results, _opts, _context) do
     if valid_for_tracking?(changeset) do
       inputs = bulk_build_notifications(changesets_and_results)
